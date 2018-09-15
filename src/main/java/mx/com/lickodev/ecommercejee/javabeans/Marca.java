@@ -1,4 +1,4 @@
-package mx.com.lickodev.ecommerce.javabeans;
+package mx.com.lickodev.ecommercejee.javabeans;
 
 import java.io.Serializable;
 

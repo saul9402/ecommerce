@@ -1,2 +1,5 @@
+mx\com\lickodev\ecommercejee\cad\CategoriaCad.class
 mx\com\lickodev\ecommercejee\cad\Conexion.class
+mx\com\lickodev\ecommercejee\javabeans\Categoria.class
 mx\com\lickodev\ecommercejee\view\Inicio.class
+mx\com\lickodev\ecommercejee\javabeans\Marca.class

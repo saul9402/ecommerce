@@ -4,8 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayList; 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mx.com.lickodev.ecommercejee.javabeans.Categoria;
@@ -16,14 +15,14 @@ import mx.com.lickodev.ecommercejee.javabeans.Categoria;
  */
 public class CategoriaCad {
 
-    public static List<Categoria> listar() {
-        String sql = "{sp_listarCategoriaSuperior()}";
+    public static ArrayList<Categoria> listar() {
+        String sql = "{call sp_listarCategoriaSuperior()}";
         Connection connection = Conexion.conectar();
         CallableStatement callableStatement;
         try {
             callableStatement = connection.prepareCall(sql);
             ResultSet resultSet = callableStatement.executeQuery();
-            List<Categoria> categorias = new ArrayList<>();
+            ArrayList<Categoria> categorias = new ArrayList<>();
             while (resultSet.next()) {
                 Categoria categoria = new Categoria();
                 categoria.setCodigo(resultSet.getInt("codigo"));

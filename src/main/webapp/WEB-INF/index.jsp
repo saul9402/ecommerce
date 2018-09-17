@@ -226,32 +226,37 @@
                             <h2>Categorías</h2>
                             <div class="panel-group category-products" id="accordian"><!--category-productsr-->
                                 <!--Definicion, permite crear metodos java directamente en el html-->
-                                <%! ArrayList<Categoria> categorias = CategoriaCad.listar(); %>
-                                <% for (int i = 0; categorias.size() > i; i++) { %>
+                                <%! ArrayList<Categoria> categorias = CategoriaCad.listar();
+                                    int codigo = 0;
+                                %>
+                                <% for (int i = 0; categorias.size() > i; i++) {
+                                        codigo = categorias.get(i).getCodigo();
+                                %>
                                 <!--Scripplet que permite escribir codigo java en bloques-->
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordian" href="#<%= categorias.get(i).getCodigo() %>">
-                                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                            <a <% if (CategoriaCad.esSuperior(codigo)) { %> data-toggle="collapse" data-parent="#accordian" <% }%> href="#<%= codigo%>">
+                                                <% if (CategoriaCad.esSuperior(codigo)) { %><span class="badge pull-right"><i class="fa fa-plus"></i></span><% }%>
                                                 <!--expresion, permite imprimir valores-->
-                                                <%= categorias.get(i).getNombre() %>
+                                                <%= categorias.get(i).getNombre()%>
                                             </a>
                                         </h4>
                                     </div>
-                                    <div id="<%= categorias.get(i).getCodigo() %>" class="panel-collapse collapse">
+                                    <div id="<%= codigo%>" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             <ul>
-                                                <li><a href="#">Nike's </a></li>
-                                                <li><a href="#">Under Armour </a></li>
-                                                <li><a href="#">Adidas </a></li>
-                                                <li><a href="#">Puma</a></li>
-                                                <li><a href="#">ASICS </a></li>
+                                                <% ArrayList<Categoria> subCategorias = CategoriaCad.listarSubCategorias(codigo); %>
+                                                <% for (int j = 0; subCategorias.size() > j; j++) {
+                                                        codigo = subCategorias.get(j).getCodigo();
+                                                %>
+                                                <li><a href="#"><%= subCategorias.get(j).getNombre()%></a></li>
+                                                    <% } %>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <% } %>
+                                <% }%>
                             </div><!--/category-products-->
 
                             <div class="brands_products"><!--brands_products-->

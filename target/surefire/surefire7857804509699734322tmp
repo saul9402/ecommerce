@@ -1,8 +1,0 @@
-#surefire
-#Sat Sep 15 01:48:08 CDT 2018
-maven.ext.class.path=C\:\\Program Files\\NetBeans 8.2\\java\\maven-nblib\\netbeans-eventspy.jar
-user.dir=C\:\\Users\\Santa Cecilia\\Documents\\NetBeansProjects\\EcommerceJEE
-file.encoding=UTF-8
-localRepository=C\:\\Users\\Santa Cecilia\\.m2\\repository
-netbeans.deploy=true
-basedir=C\:\\Users\\Santa Cecilia\\Documents\\NetBeansProjects\\EcommerceJEE

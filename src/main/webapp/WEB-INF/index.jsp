@@ -4,10 +4,6 @@
     Author     : Christian Camilo Gámez
 --%>
 
-<%@page import="java.util.ArrayList"%>
-<%@page import="mx.com.lickodev.ecommercejee.cad.CategoriaCad"%>
-<%@page import="java.util.List"%>
-<%@page import="mx.com.lickodev.ecommercejee.javabeans.Categoria"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">

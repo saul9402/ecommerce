@@ -1,14 +1,18 @@
+<%@page import="mx.com.lickodev.ecommercejee.javabeans.Categoria"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="mx.com.lickodev.ecommercejee.cad.CategoriaCad"%>
 <div class="left-sidebar">
     <h2>Categorías</h2>
     <div class="panel-group category-products" id="accordian"><!--category-productsr-->
         <!--Definicion, permite crear metodos java directamente en el html-->
-        <%! ArrayList<Categoria> categorias = CategoriaCad.listar();
+        <%! List<Categoria> categorias = CategoriaCad.listar();
             int codigo = 0;
         %>
+        <!--Scripplet que permite escribir codigo java en bloques-->
         <% for (int i = 0; categorias.size() > i; i++) {
                 codigo = categorias.get(i).getCodigo();
         %>
-        <!--Scripplet que permite escribir codigo java en bloques-->
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">

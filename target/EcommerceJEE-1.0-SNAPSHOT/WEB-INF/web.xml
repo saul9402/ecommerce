@@ -4,9 +4,25 @@
         <servlet-name>Inicio</servlet-name>
         <servlet-class>mx.com.lickodev.ecommercejee.view.Inicio</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CambiarMoneda</servlet-name>
+        <servlet-class>mx.com.lickodev.ecommercejee.control.CambiarMoneda</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Admin</servlet-name>
+        <servlet-class>mx.com.lickodev.ecommercejee.view.Admin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/Inicio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CambiarMoneda</servlet-name>
+        <url-pattern>/CambiarMoneda</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

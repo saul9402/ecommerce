@@ -4,6 +4,10 @@
     Author     : Christian Camilo Gámez
 --%>
 
+<%@page import="mx.com.lickodev.ecommercejee.cad.MarcaCad"%>
+<%@page import="mx.com.lickodev.ecommercejee.javabeans.Marca"%>
+<%@page import="mx.com.lickodev.ecommercejee.javabeans.Categoria"%>
+<%@page import="mx.com.lickodev.ecommercejee.cad.CategoriaCad"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -56,14 +60,18 @@
                                 <input type="number" name="cantidad" value="1" min="1" placeholder="Cantidad"/><br/>
                                 Marca: <br/>
                                 <select name="Marca">
-                                    <option></option>
-                                    <option></option>
+                                    <option>Seleccionar Marca</option>
+                                    <% for (Marca marca : MarcaCad.listarTodoDeMarcas()) {%>
+                                    <option value="<%= marca.getCodigo()%>"><%= marca.getNombre()%></option>
+                                    <% }%>
                                 </select>
                                 <br/>
                                 Categoria: <br/>
                                 <select name="Categoria">
-                                    <option></option>
-                                    <option></option>
+                                    <option>Seleccionar Categoria</option>
+                                    <% for (Categoria categoria : CategoriaCad.listarTodoDeCategorias()) {%>
+                                    <option value="<%= categoria.getCodigo()%>"><%= categoria.getNombre()%></option>
+                                    <% }%>
                                 </select>
                                 <br/>
                                 Descripcion: <br/><textarea name="descripcion" rows="4" cols="20" placeholder="Descripcion" required="true">
@@ -72,7 +80,7 @@
                                 Recomendado?:<input type="checkbox" name="recomendado" value="OFF" />
                                 Visible?:<input type="checkbox" name="visible" value="ON" checked="checked" />
                                 <hr/>
-                                Seleccionar Iamgen del Producto<input  type="file" name="imagen" value="Seleccionar una imagen" required="true" />
+                                Seleccionar Imagen del Producto<input  type="file" name="imagen" value="Seleccionar una imagen" required="true" />
                                 <hr/>
                                 <input class="btn btn-success"  name="accion" type="submit" value="Registrar" />
                                 <input class="btn btn-default" name="accion" type="submit" value="Consultar" />

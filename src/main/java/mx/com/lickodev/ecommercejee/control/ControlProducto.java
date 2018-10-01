@@ -13,6 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mx.com.lickodev.ecommercejee.javabeans.Producto;
+import mx.com.lickodev.ecommercejee.javabeans.ProductoMoneda;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
@@ -78,10 +80,63 @@ public class ControlProducto extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = subirImagen(request);
-        response.sendRedirect("foto/" + url);
-        
+        String nombre = request.getParameter("nombre");
+        float precio = Float.parseFloat(request.getParameter("precio"));
+        float precion = Float.parseFloat(request.getParameter("precionuevo"));
+
+        float preciocop = Float.parseFloat(request.getParameter("preciocop"));
+        float precioncop = Float.parseFloat(request.getParameter("precionuevocop"));
+
+        float preciousd = Float.parseFloat(request.getParameter("preciousd"));
+        float precionusd = Float.parseFloat(request.getParameter("precionuevousd"));
+
+        float preciopen = Float.parseFloat(request.getParameter("preciopen"));
+        float precionpen = Float.parseFloat(request.getParameter("precionuevopen"));
+
+        int cantidad = Integer.parseInt(request.getParameter("cantidad"));
+
+        int marca = Integer.parseInt(request.getParameter("marca"));
+        int categoria = Integer.parseInt(request.getParameter("categoria"));
+
+        String descripcion = request.getParameter("descripcion");
+
+        boolean nuevo = (request.getParameter("nuevo").equalsIgnoreCase("on"));
+        boolean recomendado = (request.getParameter("recomendado").equalsIgnoreCase("on"));
+        boolean visible = (request.getParameter("visible").equalsIgnoreCase("on"));
+
+        String accion = request.getParameter("accion");
+
+        Producto producto = new Producto();
+
+        producto.setNombre(nombre);
+        producto.setPrecio(precio);
+        producto.setPrecionuevo(precion);
+        producto.setCodig_categoria(categoria);
+        producto.setCodigo_marca(marca);
+        producto.setDescripcion(descripcion);
+        producto.setImg(url);
+        producto.setNuevo(nuevo);
+        producto.setRecomendado(recomendado);
+        producto.setStock(cantidad);
+        producto.setVisible(visible);
+
+        ProductoMoneda cop = new ProductoMoneda();
+        cop.setMoneda("COP");
+        cop.setPrecio(preciocop);
+        cop.setPrecionuevo(precioncop);
+
+        ProductoMoneda usd = new ProductoMoneda();
+        usd.setMoneda("USD");
+        usd.setPrecio(preciousd);
+        usd.setPrecionuevo(precionusd);
+
+        ProductoMoneda pen = new ProductoMoneda();
+        pen.setMoneda("PEN");
+        pen.setPrecio(preciopen);
+        pen.setPrecionuevo(precionpen);
+        //response.sendRedirect("foto/" + url);
     }
-    
+
     private String subirImagen(HttpServletRequest request) {
         try {
             FileItemFactory fileItemFactory = new DiskFileItemFactory();

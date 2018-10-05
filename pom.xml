@@ -39,7 +39,26 @@
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
+        
 
+        <!--Segun Baeldung con esto jala chido. Y sí sí jala chido-->        
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <!--También con este jala-->
+        <!--        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>-->
 
     </dependencies>
 

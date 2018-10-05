@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import mx.com.lickodev.ecommercejee.javabeans.Categoria;
 import mx.com.lickodev.ecommercejee.javabeans.Marca;
 
 /**

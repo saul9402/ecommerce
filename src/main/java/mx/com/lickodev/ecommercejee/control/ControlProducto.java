@@ -7,12 +7,11 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mx.com.lickodev.ecommercejee.cad.ProductoCad;
 import mx.com.lickodev.ecommercejee.javabeans.Producto;
 import mx.com.lickodev.ecommercejee.javabeans.ProductoMoneda;
 import org.apache.commons.fileupload.FileItem;
@@ -79,33 +78,47 @@ public class ControlProducto extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = subirImagen(request);
-        String nombre = request.getParameter("nombre");
-        float precio = Float.parseFloat(request.getParameter("precio"));
-        float precion = Float.parseFloat(request.getParameter("precionuevo"));
+        recibirDatos(request);
+        String url = request.getAttribute("imagen").toString();
 
-        float preciocop = Float.parseFloat(request.getParameter("preciocop"));
-        float precioncop = Float.parseFloat(request.getParameter("precionuevocop"));
+        String nombre = request.getAttribute("nombre").toString();
+        float precio = Float.parseFloat(request.getAttribute("precio").toString());
+        float precion = Float.parseFloat(request.getAttribute("precionuevo").toString());
+//
+        float preciocop = Float.parseFloat(request.getAttribute("preciocop").toString());
+        float precioncop = Float.parseFloat(request.getAttribute("precionuevocop").toString());
+//
+        float preciousd = Float.parseFloat(request.getAttribute("preciousd").toString());
+        float precionusd = Float.parseFloat(request.getAttribute("precionuevousd").toString());
+//
+        float preciopen = Float.parseFloat(request.getAttribute("preciopen").toString());
+        float precionpen = Float.parseFloat(request.getAttribute("precionuevopen").toString());
+//
+        int cantidad = Integer.parseInt(request.getAttribute("cantidad").toString());
 
-        float preciousd = Float.parseFloat(request.getParameter("preciousd"));
-        float precionusd = Float.parseFloat(request.getParameter("precionuevousd"));
+        int marca = Integer.parseInt(request.getAttribute("marca").toString());
+        int categoria = Integer.parseInt(request.getAttribute("categoria").toString());
 
-        float preciopen = Float.parseFloat(request.getParameter("preciopen"));
-        float precionpen = Float.parseFloat(request.getParameter("precionuevopen"));
+        String descripcion = request.getAttribute("descripcion").toString();
+        boolean nuevo, recomendado, visible;
+        try {
+            nuevo = (request.getAttribute("nuevo").toString().equalsIgnoreCase("on"));
+        } catch (Exception e) {
+            nuevo = false;
+        }
+        try {
+            recomendado = (request.getAttribute("recomendado").toString().equalsIgnoreCase("on"));
+        } catch (Exception e) {
+            recomendado = false;
+        }
+        try {
+            visible = (request.getAttribute("visible").toString().equalsIgnoreCase("on"));
+        } catch (Exception e) {
+            visible = false;
+        }
 
-        int cantidad = Integer.parseInt(request.getParameter("cantidad"));
-
-        int marca = Integer.parseInt(request.getParameter("marca"));
-        int categoria = Integer.parseInt(request.getParameter("categoria"));
-
-        String descripcion = request.getParameter("descripcion");
-
-        boolean nuevo = (request.getParameter("nuevo").equalsIgnoreCase("on"));
-        boolean recomendado = (request.getParameter("recomendado").equalsIgnoreCase("on"));
-        boolean visible = (request.getParameter("visible").equalsIgnoreCase("on"));
-
-        String accion = request.getParameter("accion");
-
+        String accion = request.getAttribute("accion").toString();
+//
         Producto producto = new Producto();
 
         producto.setNombre(nombre);
@@ -134,10 +147,23 @@ public class ControlProducto extends HttpServlet {
         pen.setMoneda("PEN");
         pen.setPrecio(preciopen);
         pen.setPrecionuevo(precionpen);
+
+//        response.sendRedirect("Inicio");
+        if (accion.equalsIgnoreCase("registrar")) {
+            if (ProductoCad.registrarProducto(producto, cop, usd, pen)) {
+                request.setAttribute("mensaje", "<p style='color:green'> producto registrado </p>");
+            } else {
+                request.setAttribute("mensaje", "<p style='color:red'> producto NO registrado </p>");
+            }
+        } else {
+            request.setAttribute("mensaje", "<p style='color:red'> accion desconocida </p>");
+        }
+        //con esto se hace una redireccion
+        request.getRequestDispatcher("admin").forward(request, response);
         //response.sendRedirect("foto/" + url);
     }
 
-    private String subirImagen(HttpServletRequest request) {
+    private void recibirDatos(HttpServletRequest request) {
         try {
             FileItemFactory fileItemFactory = new DiskFileItemFactory();
             ServletFileUpload servletFileUpload = new ServletFileUpload(fileItemFactory);
@@ -158,9 +184,10 @@ public class ControlProducto extends HttpServlet {
                     File imagen = new File(nuevonombre);
                     if (item.getContentType().contains("image")) {
                         item.write(imagen);
-                        request.setAttribute("subida", true);
-                        return nombre;
+                        request.setAttribute(item.getFieldName(), nombre);
                     }
+                } else {
+                    request.setAttribute(item.getFieldName(), item.getString());
                 }
             }
         } catch (FileUploadException ex) {
@@ -168,7 +195,6 @@ public class ControlProducto extends HttpServlet {
         } catch (Exception ex) {
             request.setAttribute("subida", false);
         }
-        return "";
     }
 
     /**

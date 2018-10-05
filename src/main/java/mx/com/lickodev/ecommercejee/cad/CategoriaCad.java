@@ -11,7 +11,7 @@ import mx.com.lickodev.ecommercejee.javabeans.Categoria;
 
 /**
  *
- * @author Santa Cecilia
+ * @author Saul Avila
  */
 public class CategoriaCad {
 

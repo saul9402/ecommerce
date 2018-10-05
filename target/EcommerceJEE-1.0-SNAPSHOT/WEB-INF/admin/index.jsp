@@ -30,6 +30,7 @@
                     <div class="col-sm-3">
                     </div>
                     <div class="col-sm-10 clearfix">
+                        ${mensaje}
                         <h3>Gestionar Producto</h3>
                         <form action="ControlProducto" enctype="multipart/form-data" method="post">
                             <div class="form-one">
@@ -59,7 +60,7 @@
                                 Stock: <br/>
                                 <input type="number" name="cantidad" value="1" min="1" placeholder="Cantidad"/><br/>
                                 Marca: <br/>
-                                <select name="Marca">
+                                <select name="marca">
                                     <option>Seleccionar Marca</option>
                                     <% for (Marca marca : MarcaCad.listarTodoDeMarcas()) {%>
                                     <option value="<%= marca.getCodigo()%>"><%= marca.getNombre()%></option>
@@ -67,7 +68,7 @@
                                 </select>
                                 <br/>
                                 Categoria: <br/>
-                                <select name="Categoria">
+                                <select name="categoria">
                                     <option>Seleccionar Categoria</option>
                                     <% for (Categoria categoria : CategoriaCad.listarTodoDeCategorias()) {%>
                                     <option value="<%= categoria.getCodigo()%>"><%= categoria.getNombre()%></option>
@@ -77,7 +78,7 @@
                                 Descripcion: <br/><textarea name="descripcion" rows="4" cols="20" placeholder="Descripcion" required="true">
                                 </textarea><br/>
                                 Nuevo?:<input type="checkbox" name="nuevo" value="ON" checked="checked" />
-                                Recomendado?:<input type="checkbox" name="recomendado" value="OFF" />
+                                Recomendado?:<input type="checkbox" name="recomendado" value="ON" />
                                 Visible?:<input type="checkbox" name="visible" value="ON" checked="checked" />
                                 <hr/>
                                 Seleccionar Imagen del Producto<input  type="file" name="imagen" value="Seleccionar una imagen" required="true" />

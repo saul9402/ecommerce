@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mx.com.lickodev.ecommercejee.javabeans.Producto;
@@ -48,6 +49,37 @@ public class ProductoCad {
         } catch (SQLException ex) {
             Logger.getLogger(CategoriaCad.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }
+    }
+
+    public static ArrayList<Producto> listarProductosRecomendados(String moneda) {
+        try {
+            String sql = "{call sp_listarRecomendados(?)}";
+            Connection connection = Conexion.conectar();
+            CallableStatement callableStatement = connection.prepareCall(sql);
+            callableStatement.setString(1, moneda);
+            ResultSet resultSet = callableStatement.executeQuery();
+            ArrayList<Producto> productos = new ArrayList<>();
+            while (resultSet.next()) {
+                Producto producto = new Producto();
+                producto.setWebid(resultSet.getInt("webid"));
+                producto.setNombre(resultSet.getString("nombre"));
+                producto.setImg(resultSet.getString("img"));
+                producto.setStock(resultSet.getInt("stock"));
+                producto.setNuevo(resultSet.getBoolean("nuevo"));
+                if (!moneda.equalsIgnoreCase("MXN")) {
+                    producto.setPrecio(resultSet.getFloat("precio2"));
+                    producto.setPrecionuevo(resultSet.getFloat("precion2"));
+                } else {
+                    producto.setPrecio(resultSet.getFloat("precio"));
+                    producto.setPrecionuevo(resultSet.getFloat("precionuevo"));
+                }
+                productos.add(producto);
+            }
+            return productos;
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaCad.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 }

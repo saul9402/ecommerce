@@ -1,5 +1,12 @@
 mx\com\lickodev\ecommercejee\cad\CategoriaCad.class
 mx\com\lickodev\ecommercejee\cad\Conexion.class
+mx\com\lickodev\ecommercejee\control\CambiarMoneda.class
 mx\com\lickodev\ecommercejee\javabeans\Categoria.class
-mx\com\lickodev\ecommercejee\view\Inicio.class
+mx\com\lickodev\ecommercejee\control\ControlProducto.class
 mx\com\lickodev\ecommercejee\javabeans\Marca.class
+mx\com\lickodev\ecommercejee\javabeans\ProductoMoneda.class
+mx\com\lickodev\ecommercejee\cad\MarcaCad.class
+mx\com\lickodev\ecommercejee\view\Inicio.class
+mx\com\lickodev\ecommercejee\javabeans\Producto.class
+mx\com\lickodev\ecommercejee\cad\ProductoCad.class
+mx\com\lickodev\ecommercejee\view\Admin.class

@@ -11,7 +11,7 @@ import mx.com.lickodev.ecommercejee.javabeans.Categoria;
 
 /**
  *
- * @author Santa Cecilia
+ * @author Saul Avila
  */
 public class CategoriaCad {
 
@@ -57,6 +57,28 @@ public class CategoriaCad {
             return null;
         }
     }
+       public static ArrayList<Categoria> listarTodoDeCategorias() {
+        try {
+            String sql = "{call  sp_listartodoCategoria()}";
+            Connection connection = Conexion.conectar();
+            CallableStatement callableStatement;
+            callableStatement = connection.prepareCall(sql);
+            //callableStatement.setInt(1, catSuperior);
+            ResultSet resultSet = callableStatement.executeQuery();
+            ArrayList<Categoria> categorias = new ArrayList<>();
+            while (resultSet.next()) {
+                Categoria categoria = new Categoria();
+                categoria.setCodigo(resultSet.getInt("codigo"));
+                categoria.setNombre(resultSet.getString("nombre"));
+                categorias.add(categoria);
+            }
+            return categorias;
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaCad.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
 
     public static boolean esSuperior(int cat) {
         try {

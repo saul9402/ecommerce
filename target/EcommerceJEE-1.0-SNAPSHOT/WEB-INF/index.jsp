@@ -35,10 +35,16 @@
                     <div class="col-sm-9 padding-right">
                         <div class="features_items"><!--features_items-->
                             <h2 class="title text-center">Productos destacados</h2>
-                            <% ArrayList<Producto> productos = ProductoCad.listarProductosRecomendados(session.getAttribute("moneda").toString());
-                                pageContext.setAttribute("productos", productos);
-                            %> 
-                            <c:forEach var="producto" items="${productos}">
+                            <%! ArrayList<Producto> datos;%> 
+                            <% if (Integer.parseInt(session.getAttribute("category").toString()) > 0) {
+                                    datos = ProductoCad.listarProductoPorCategoria(session.getAttribute("moneda").toString(), Integer.parseInt(session.getAttribute("category").toString()));
+                                } else {
+                                    datos = ProductoCad.listarProductosRecomendados(session.getAttribute("moneda").toString());
+                                }
+                                pageContext.setAttribute("datos", datos);
+
+                            %>
+                            <c:forEach var="producto" items="${datos}">
                                 <div class="col-sm-4">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
@@ -56,14 +62,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                                    
-                                                    <c:if test="${producto.nuevo}">
-                                                        <img src="images/home/new.png" class="new" alt="producto nuevo"/>
-                                                    </c:if>
-                                            <div class="choose">
-                                                <ul class="nav nav-pills nav-justified">
-                                                    <li><a href=""><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#" <c:if test="${producto.stock == 0}"> class="gris" </c:if>>
+
+                                        <c:if test="${producto.nuevo}">
+                                            <img src="images/home/new.png" class="new" alt="producto nuevo"/>
+                                        </c:if>
+                                        <div class="choose">
+                                            <ul class="nav nav-pills nav-justified">
+                                                <li><a href=""><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
+                                                <li><a href="#" <c:if test="${producto.stock == 0}"> class="gris" </c:if>>
                                                         <c:choose>
                                                             <c:when test="${producto.stock > 0}">
                                                                 <i class="fa fa-check-circle"></i>(<c:out value="${producto.stock}"/>)  Disponible      
@@ -72,12 +78,12 @@
                                                                 <i class="fa fa-lock"></i>(<c:out value="${producto.stock}"/>)  Agotado      
                                                             </c:otherwise>
                                                         </c:choose>
-                                                            
-                                                        </a></li>
-                                                </ul>
-                                            </div>
+
+                                                    </a></li>
+                                            </ul>
                                         </div>
                                     </div>
+                                </div>
                             </c:forEach> 
                         </div><!--features_items-->
 

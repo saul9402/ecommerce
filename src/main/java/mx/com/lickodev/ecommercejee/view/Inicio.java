@@ -26,9 +26,14 @@ public class Inicio extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        if(session.getAttribute("moneda") == null){
+        if (session.getAttribute("moneda") == null) {
             session.setAttribute("moneda", "MXN");
             session.setAttribute("nom_moneda", "$ Pesos Mexicanos");
+        }
+        if (request.getParameter("category") != null) {
+            session.setAttribute("category", Integer.parseInt(request.getParameter("category")));
+        } else {
+            session.setAttribute("category", 0);
         }
         request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
     }

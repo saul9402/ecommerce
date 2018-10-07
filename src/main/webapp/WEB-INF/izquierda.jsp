@@ -16,10 +16,10 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a <% if (CategoriaCad.esSuperior(codigo)) { %> data-toggle="collapse" data-parent="#accordian" <% }%> href="#<%= codigo%>">
+                    <a <% if (CategoriaCad.esSuperior(codigo)) { %> data-toggle="collapse" data-parent="#accordian" <% }%> href="#<%= codigo%>" >
                         <% if (CategoriaCad.esSuperior(codigo)) { %><span class="badge pull-right"><i class="fa fa-plus"></i></span><% }%>
                         <!--expresion, permite imprimir valores-->
-                        <%= categorias.get(i).getNombre()%>
+                        <a href="?category=<%= codigo%>"><%= categorias.get(i).getNombre()%></a>
                     </a>
                 </h4>
             </div>
@@ -30,7 +30,7 @@
                         <% for (int j = 0; subCategorias.size() > j; j++) {
                                 codigo = subCategorias.get(j).getCodigo();
                         %>
-                        <li><a href="#"><%= subCategorias.get(j).getNombre()%></a></li>
+                        <li><a href="?category=<%= codigo%>"><%= subCategorias.get(j).getNombre()%></a></li>
                             <% } %>
                     </ul>
                 </div>

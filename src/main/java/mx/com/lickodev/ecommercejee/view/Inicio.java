@@ -32,9 +32,13 @@ public class Inicio extends HttpServlet {
         }
         if (request.getParameter("category") != null) {
             session.setAttribute("category", Integer.parseInt(request.getParameter("category")));
+        } else if (request.getParameter("brand") != null) {
+            session.setAttribute("brand", Integer.parseInt(request.getParameter("brand")));
         } else {
             session.setAttribute("category", 0);
+            session.setAttribute("brand", 0);
         }
+
         request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
     }
 

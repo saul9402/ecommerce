@@ -113,4 +113,35 @@ public class ProductoCad {
             return null;
         }
     }
+    public static ArrayList<Producto> listarProductoPorMarca(String moneda, int marca) {
+        try {
+            String sql = "{call sp_listarPorMarca(?,?)}";
+            Connection connection = Conexion.conectar();
+            CallableStatement callableStatement = connection.prepareCall(sql);
+            callableStatement.setString(1, moneda);
+            callableStatement.setInt(2, marca);
+            ResultSet resultSet = callableStatement.executeQuery();
+            ArrayList<Producto> productos = new ArrayList<>();
+            while (resultSet.next()) {
+                Producto producto = new Producto();
+                producto.setWebid(resultSet.getInt("webid"));
+                producto.setNombre(resultSet.getString("nombre"));
+                producto.setImg(resultSet.getString("img"));
+                producto.setStock(resultSet.getInt("stock"));
+                producto.setNuevo(resultSet.getBoolean("nuevo"));
+                if (!moneda.equalsIgnoreCase("MXN")) {
+                    producto.setPrecio(resultSet.getFloat("precio2"));
+                    producto.setPrecionuevo(resultSet.getFloat("precion2"));
+                } else {
+                    producto.setPrecio(resultSet.getFloat("precio"));
+                    producto.setPrecionuevo(resultSet.getFloat("precionuevo"));
+                }
+                productos.add(producto);
+            }
+            return productos;
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaCad.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }

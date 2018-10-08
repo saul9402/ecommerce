@@ -1,3 +1,5 @@
+<%@page import="mx.com.lickodev.ecommercejee.cad.MarcaCad"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="mx.com.lickodev.ecommercejee.javabeans.Categoria"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -43,12 +45,11 @@
         <h2>Marcas</h2>
         <div class="brands-name">
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="#"> <span class="pull-right">(56)</span>Nike</a></li>
-                <li><a href="#"> <span class="pull-right">(27)</span>Adidas</a></li>
-                <li><a href="#"> <span class="pull-right">(32)</span>Polo</a></li>
-                <li><a href="#"> <span class="pull-right">(5)</span>Puma</a></li>
-                <li><a href="#"> <span class="pull-right">(9)</span>Boude</a></li>
-                <li><a href="#"> <span class="pull-right">(4)</span>ACB</a></li>
+                <c:forEach var="m" items="<%= MarcaCad.listarTodoDeMarcas()%>">
+                    <c:set var="cod" value="${m.codigo}"/>
+                    <% int cod = Integer.parseInt(pageContext.getAttribute("cod").toString()); %>
+                    <li><a href="?brand=${m.codigo}"> <span class="pull-right">(<%= MarcaCad.contarMarcas(cod) %>)</span>${m.nombre}</a></li>
+                </c:forEach>
             </ul>
         </div>
     </div><!--/brands_products-->

@@ -37,4 +37,20 @@ public class MarcaCad {
         }
     }
 
+    public static int contarMarcas(int co) {
+        try {
+            String sql = "{call  sp_contarProductosMarca(?)}";
+            Connection connection = Conexion.conectar();
+            CallableStatement callableStatement;
+            callableStatement = connection.prepareCall(sql);
+            callableStatement.setInt(1, co);
+            //callableStatement.setInt(1, catSuperior);
+            ResultSet resultSet = callableStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaCad.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }
 }

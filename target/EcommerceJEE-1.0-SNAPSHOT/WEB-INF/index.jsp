@@ -38,6 +38,8 @@
                             <%! ArrayList<Producto> datos;%> 
                             <% if (Integer.parseInt(session.getAttribute("category").toString()) > 0) {
                                     datos = ProductoCad.listarProductoPorCategoria(session.getAttribute("moneda").toString(), Integer.parseInt(session.getAttribute("category").toString()));
+                                }else if (Integer.parseInt(session.getAttribute("brand").toString()) > 0) {
+                                    datos = ProductoCad.listarProductoPorMarca(session.getAttribute("moneda").toString(), Integer.parseInt(session.getAttribute("brand").toString()));
                                 } else {
                                     datos = ProductoCad.listarProductosRecomendados(session.getAttribute("moneda").toString());
                                 }

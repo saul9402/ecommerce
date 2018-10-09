@@ -38,7 +38,7 @@
                             <%! ArrayList<Producto> datos;%> 
                             <% if (Integer.parseInt(session.getAttribute("category").toString()) > 0) {
                                     datos = ProductoCad.listarProductoPorCategoria(session.getAttribute("moneda").toString(), Integer.parseInt(session.getAttribute("category").toString()));
-                                }else if (Integer.parseInt(session.getAttribute("brand").toString()) > 0) {
+                                } else if (Integer.parseInt(session.getAttribute("brand").toString()) > 0) {
                                     datos = ProductoCad.listarProductoPorMarca(session.getAttribute("moneda").toString(), Integer.parseInt(session.getAttribute("brand").toString()));
                                 } else {
                                     datos = ProductoCad.listarProductosRecomendados(session.getAttribute("moneda").toString());
@@ -60,7 +60,7 @@
                                                     <div class="overlay-content">
                                                         <h2>${sessionScope.moneda}${producto.precio}</h2>
                                                     <p>${producto.nombre}</p>
-                                                    <a href="#" class="btn btn-default add-to-cart" <c:if test="${producto.stock == 0}"> disabled </c:if>><i class="fa fa-shopping-cart"></i>Agregar al carrito</a>
+                                                    <a href="Cart?id=${producto.webid}&action=order" class="btn btn-default add-to-cart" <c:if test="${producto.stock == 0}"> disabled </c:if>><i class="fa fa-shopping-cart"></i>Agregar al carrito</a>
                                                     </div>
                                                 </div>
                                             </div>

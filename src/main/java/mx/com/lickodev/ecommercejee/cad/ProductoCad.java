@@ -113,6 +113,7 @@ public class ProductoCad {
             return null;
         }
     }
+
     public static ArrayList<Producto> listarProductoPorMarca(String moneda, int marca) {
         try {
             String sql = "{call sp_listarPorMarca(?,?)}";
@@ -139,6 +140,37 @@ public class ProductoCad {
                 productos.add(producto);
             }
             return productos;
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaCad.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public static Producto consultarProducto(String moneda, int webid) {
+        try {
+            String sql = "{call sp_consultarProducto(?,?)}";
+            Connection connection = Conexion.conectar();
+            CallableStatement callableStatement = connection.prepareCall(sql);
+            callableStatement.setString(1, moneda);
+            callableStatement.setInt(2, webid);
+            ResultSet resultSet = callableStatement.executeQuery();
+            Producto producto = null;
+            if (resultSet.next()) {
+                producto = new Producto();
+                producto.setWebid(resultSet.getInt("webid"));
+                producto.setNombre(resultSet.getString("nombre"));
+                producto.setImg(resultSet.getString("img"));
+                producto.setStock(resultSet.getInt("stock"));
+                producto.setNuevo(resultSet.getBoolean("nuevo"));
+                if (!moneda.equalsIgnoreCase("MXN")) {
+                    producto.setPrecio(resultSet.getFloat("precio2"));
+                    producto.setPrecionuevo(resultSet.getFloat("precion2"));
+                } else {
+                    producto.setPrecio(resultSet.getFloat("precio"));
+                    producto.setPrecionuevo(resultSet.getFloat("precionuevo"));
+                }
+            }
+            return producto;
         } catch (SQLException ex) {
             Logger.getLogger(CategoriaCad.class.getName()).log(Level.SEVERE, null, ex);
             return null;

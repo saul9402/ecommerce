@@ -11,6 +11,7 @@
         <meta name="author" content="">
         <title>Inicio |  Crea e-Commerce JAVA EE con pagos Online Paypal y Payu</title>
         <%@include file="../WEB-INF/css.jsp" %>
+        <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     </head><!--/head-->
     <body>
         <!--Con la etiqueta include le dices a java que vas a incluir un archivo que contiene informacion que puede usar
@@ -64,8 +65,8 @@
                                         </td>
                                         <td class="cart_delete">
                                             <a class="cart_quantity_delete" href="?action=delete&id=${pro.producto.webid}"><i class="fa fa-times"></i></a>
-                                        </td>
-                                    </tr>
+                                    </td>
+                                </tr>
                             </c:forEach>
                         </tbody>
                     </table>
@@ -90,6 +91,7 @@
                             </ul>
                             <a class="btn btn-default update" href="Inicio">Seguir comprando</a>
                             <a class="btn btn-default check_out" href="Checkout">Realizar pago</a>
+                            <%@include file="../WEB-INF/checkout.jsp" %>
                         </div>
                     </div>
                 </div>

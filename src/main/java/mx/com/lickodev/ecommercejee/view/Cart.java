@@ -30,10 +30,11 @@ public class Cart extends HttpServlet {
             throws ServletException, IOException {
         if (request.getParameter("action") != null) {
             String a = request.getParameter("action");
-            int webid = Integer.parseInt(request.getParameter("id"));
+            int webid = 0;
             Producto producto;
             HttpSession httpSession = request.getSession();
             if (a.equals("order")) {
+                webid = Integer.parseInt(request.getParameter("id"));
                 if (httpSession.getAttribute("cart") == null) {
                     ArrayList<Item> cart = new ArrayList<>();
                     producto = ProductoCad.consultarProducto(httpSession.getAttribute("moneda").toString(), webid);
@@ -52,10 +53,18 @@ public class Cart extends HttpServlet {
                     httpSession.setAttribute("cart", cart);
                 }
             } else if (a.equals("delete")) {
+                webid = Integer.parseInt(request.getParameter("id"));
                 ArrayList<Item> cart = (ArrayList<Item>) httpSession.getAttribute("cart");
                 int indice = yaExisteElProducto(webid, cart);
                 cart.remove(indice);
                 httpSession.setAttribute("cart", cart);
+            } else if (a.equals("finish")) {
+                ArrayList<Item> cart = (ArrayList<Item>) httpSession.getAttribute("cart");
+                int indice = yaExisteElProducto(webid, cart);
+                cart.clear();
+                httpSession.setAttribute("cart", cart);
+                response.setContentType("text/html;charset=UTF-8");
+                request.getRequestDispatcher("Inicio.jsp").forward(request, response);
             }
         }
         response.setContentType("text/html;charset=UTF-8");
